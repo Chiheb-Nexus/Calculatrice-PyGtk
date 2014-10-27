@@ -16,5 +16,5 @@ Veuillez noter que **Calculatrice PyGtk** dépend de **Python 3** et du **module
   - Le bouton "=" occupe maintenant deux colonnes 
 
 #Bugs 
-Veuillez notez les bugs sur https://github.com/Chiheb-Nexus/Youtube-dl_PyGtk_Gui
+Veuillez notez les bugs sur https://github.com/Chiheb-Nexus/Calculatrice-PyGtk
 Pour plus d'informations, veuillez visiter mon blog : http://nexus-coding.blogspot.com/
