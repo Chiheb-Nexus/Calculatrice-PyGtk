@@ -25,14 +25,14 @@
 
 from gi.repository import Gtk,GdkPixbuf
 import os
-
+from math import sqrt
 class CalcApp(Gtk.Window):
     "Initialisation de la fenêtre principale"
     def __init__(self):
         Gtk.Window.__init__(self,title="Calculatrice PyGtk")
         self.set_icon_from_file("icon.png")
-        
-        self.set_default_size(250, 230)
+        #self.set_resizable(False)  # Fenêtre de taille fixe
+        self.set_default_size(250,200)
         # Gui au centre de l'écran
         self.set_position(Gtk.WindowPosition.CENTER)
         # Menu : File/_Quitter + Aide/_Àpropos + Aide/_Plus
@@ -42,16 +42,28 @@ class CalcApp(Gtk.Window):
         self.ui_file = os.getcwd() +"/gui_menu.xml"
         uimanager = self.create_ui_manager()
         uimanager.insert_action_group(action_group)
-		
+
         menubar = uimanager.get_widget("/MenuBar")
         vbox = Gtk.VBox()
         # Liste des boutons 
         vbox.pack_start(menubar, False, False, 0)
-        self.cls = Gtk.Button("Cls")
+        # Ajouter une image au bouton de Clear Screen
+        image = Gtk.Image()
+        image.set_from_stock(Gtk.STOCK_REFRESH,3)
+        self.cls = Gtk.Button()
+        self.cls.set_image(image)
         self.cls.connect("clicked",self.calc,"Cls")
-        self.bck = Gtk.Button("Bck")
+        
+        image = Gtk.Image()
+        image.set_from_stock(Gtk.STOCK_CLEAR,3)
+        self.bck = Gtk.Button()
+        self.bck.set_image(image)
         self.bck.connect("clicked",self.calc,"Bck")
-        self.close = Gtk.Button("Close")
+        # Ajouter une image au bouton Close
+        image2 = Gtk.Image()
+        image2.set_from_stock(Gtk.STOCK_CLOSE,3)
+        self.close = Gtk.Button()
+        self.close.set_image(image2)
         self.close.connect("clicked",self.quitter)
         self.b0 = Gtk.Button("0")
         self.b0.connect("clicked",self.print_txt,"0")
@@ -73,50 +85,61 @@ class CalcApp(Gtk.Window):
         self.b8.connect("clicked",self.print_txt,"8")
         self.b9 = Gtk.Button("9")
         self.b9.connect("clicked",self.print_txt,"9")
-        self.div = Gtk.Button("/")
+        self.div = Gtk.Button("÷")
         self.div.connect("clicked",self.calc,"/")
-        self.fois = Gtk.Button("*")
+        self.fois = Gtk.Button("×")
         self.fois.connect("clicked",self.calc,"*")
         self.minus = Gtk.Button("-")
         self.minus.connect("clicked",self.calc,"-")
         self.plus = Gtk.Button("+")
         self.plus.connect("clicked",self.calc,"+")
-        self.pt = Gtk.Button(".")
+        self.pt = Gtk.Button(",")
         self.pt.connect("clicked",self.print_txt,".")
         self.egal = Gtk.Button("=")
         self.egal.connect("clicked",self.calc,"=")
+        self.p1 = Gtk.Button("(")
+        self.p1.connect("clicked",self.print_txt,"(")
+        self.p2 = Gtk.Button(")")
+        self.p2.connect("clicked",self.print_txt,")")
+        self.racine = Gtk.Button("√")
+        self.racine.connect("clicked",self.print_txt,"√")
          
         # Créer un Table et placer les boutons
-        table = Gtk.Table(5, 4, True)
+        table = Gtk.Table(5, 5, True)
 
         table.attach(self.cls, 0, 1, 0, 1)
         table.attach(self.bck, 1, 2, 0, 1)
         table.attach(Gtk.Label(), 2, 3, 0, 1)
-        table.attach(self.close, 3, 4, 0, 1)
+        #table.attach(Gtk.Button("(°-°)"), 3, 4, 0, 1)
+        table.attach(self.close,4,5,0,1)
 
         table.attach(self.b7, 0, 1, 1, 2)
         table.attach(self.b8, 1, 2, 1, 2)
         table.attach(self.b9, 2, 3, 1, 2)
-        table.attach(self.div, 3, 4, 1, 2)
+        table.attach(self.p1, 3, 4, 1, 2)
+        table.attach(self.p2,4,5,1,2)
 
         table.attach(self.b4, 0, 1, 2, 3)
         table.attach(self.b5, 1, 2, 2, 3)
         table.attach(self.b6, 2, 3, 2, 3)
         table.attach(self.fois, 3, 4, 2, 3)
+        table.attach(self.div,4,5,2,3)
 
         table.attach(self.b1, 0, 1, 3, 4)
         table.attach(self.b2, 1, 2, 3, 4)
         table.attach(self.b3, 2, 3, 3, 4)
         table.attach(self.minus, 3, 4, 3, 4)
+        table.attach(self.plus,4,5,3,4)
 
         table.attach(self.b0, 0, 1, 4, 5)
         table.attach(self.pt, 1, 2, 4, 5)
-        table.attach(self.egal, 2, 3, 4, 5)
-        table.attach(self.plus, 3, 4, 4, 5)
+        table.attach(self.egal, 2, 4, 4, 5)
+        table.attach(self.racine, 4, 5, 4, 5)
         
         self.entree = Gtk.Entry()
+        
 
-        vbox.pack_start(self.entree, False, False, 0)
+        vbox.pack_start(self.entree, True, True, 10)
         vbox.pack_end(table, True, True, 0)
 
         self.add(vbox)
@@ -128,7 +151,7 @@ class CalcApp(Gtk.Window):
         "Les numéros seront affichés dans la widget Entry"
         if chiffre == "." :
             chiffre = ','
-        self.entree.insert_text(chiffre,position = 20)
+        self.entree.insert_text(chiffre,position = 40)
         self.nombre = self.entree.get_text()
     
     def calc (self,widget,operator) :
@@ -139,26 +162,52 @@ class CalcApp(Gtk.Window):
             txt = self.entree.get_text()
             self.entree.set_text(txt[:len(txt)-1])
         elif operator == "+" :
-            self.entree.set_text(self.nombre + "+")
+            b = self.entree.get_text()
+            self.entree.set_text(b + "+")
         elif operator == "-" :
             b = self.entree.get_text()
-            self.flag = 2
             self.entree.set_text(b+"-")
         elif operator == "*" :
             b = self.entree.get_text()
             self.entree.set_text(b+"*")
         elif operator == "/" :
             b = self.entree.get_text()
-            self.entree.set_text(b+"/")
+            self.entree.set_text(b+"÷")
         elif operator == "=" :
             # Remplacer "," par "." pour faire les calculs
-            # Et remplacer par "." par "," lors de l'affichage
+            # Et remplacer "." et "/" par "," et "÷" lors de l'affichage
             b = self.entree.get_text().replace(",",".")
+            b = b.replace("÷","/")
+            b = self.calcul_racine(b)
             try :
                 resultat = eval(b) # La magie de Python !!
-                self.entree.set_text(str(resultat).replace(".",","))
+                result = str(resultat).replace("/","÷")
+                self.entree.set_text(str(result).replace(".",","))
             except :
                 self.entree.set_text(b)
+                
+    def calcul_racine (self,a) :
+        "Modification de la Gtk.Entry pour la calculer"
+        compteur = 0
+        for i in a :
+            if i == "√" :
+                compteur +=1
+        for i in range(len(a)+compteur*4) :
+            if a[i] == "√" :
+                if a[i+1] == "(" :
+                    a = list(a)
+                    a[i] = "sqrt"
+                    print(a)
+                    a = "".join(a)
+                    
+                elif a[i+1] != "(" :
+                    a = list(a)
+                    d = a[i+1]
+                    a[i+1] = d +")"
+                    a[i] = "sqrt("
+                    a = "".join(a)
+        return a
+		
             
             
     def add_fichier_menu_actions(self,action_group) :
@@ -193,7 +242,7 @@ class CalcApp(Gtk.Window):
         "À propos"
         about = Gtk.AboutDialog()
         about.set_program_name("Calculatrice PyGtk")
-        about.set_version("<b>Version :</b> 0.0.1")
+        about.set_version("<b>Version :</b> 0.0.2")
         about.set_copyright("Chiheb NeXus© - 2014")
         about.set_comments("Calculatrice PygGtk est une calculatrice basique crée avec PyGtk3+ ")
         about.set_website("http://www.nexus-coding.blogspot.com")
