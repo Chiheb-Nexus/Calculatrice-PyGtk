@@ -9,12 +9,12 @@ Veuillez noter que **Calculatrice PyGtk** dépend de **Python 3** et du **module
 #Description 
 
 **Calculatrice PyGtk** est en cours d'évolution. 
-**27/10/2014** **Fix** :
+- **27/10/2014** **Fix** :
   - Ajout des icônes sur les boutons : "Fermer", "Effacer tout" et "effacer le dernier chiffre"
   - Ajout des parenthèses "(" et ")"
   - Ajout du racine carré et de la méthode "calcul_racine"
   - Le bouton "=" occupe maintenant deux colonnes 
-  **28/10/2014** **Fix** : 
+  - **28/10/2014** **Fix** : 
    - Correction de la méthode "calcul_racine" et optimisation du code grâce à arshajii du forum stackoverflow.com 
 
  #TODO :
