@@ -229,7 +229,7 @@ class CalcApp(Gtk.Window):
         "À propos"
         about = Gtk.AboutDialog()
         about.set_program_name("Calculatrice PyGtk")
-        about.set_version("<b>Version :</b> 0.0.2")
+        about.set_version("<b>Version :</b> 0.0.3")
         about.set_copyright("Chiheb NeXus© - 2014")
         about.set_comments("Calculatrice PygGtk est une calculatrice basique crée avec PyGtk3+ ")
         about.set_website("http://www.nexus-coding.blogspot.com")
