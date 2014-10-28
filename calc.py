@@ -24,6 +24,7 @@
 
 
 from gi.repository import Gtk,GdkPixbuf
+import re
 import os
 from math import sqrt
 class CalcApp(Gtk.Window):
@@ -188,24 +189,10 @@ class CalcApp(Gtk.Window):
                 
     def calcul_racine (self,a) :
         "Modification de la Gtk.Entry pour la calculer"
-        compteur = 0
-        for i in a :
-            if i == "√" :
-                compteur +=1
-        for i in range(len(a)+compteur*4) :
-            if a[i] == "√" :
-                if a[i+1] == "(" :
-                    a = list(a)
-                    a[i] = "sqrt"
-                    print(a)
-                    a = "".join(a)
-                    
-                elif a[i+1] != "(" :
-                    a = list(a)
-                    d = a[i+1]
-                    a[i+1] = d +")"
-                    a[i] = "sqrt("
-                    a = "".join(a)
+        
+        a = re.sub(r'√(\d*\.?\d+)', r'√(\1)', a).replace("√","sqrt")
+        # Remerciements à arshajii du forum stackoverflow.com 
+        
         return a
 		
             
