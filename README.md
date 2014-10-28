@@ -18,9 +18,9 @@ Veuillez noter que **Calculatrice PyGtk** dépend de **Python 3** et du **module
    - Correction de la méthode "calcul_racine" et optimisation du code grâce à arshajii du forum stackoverflow.com 
 
  #TODO :
-  [] Modifier l'interface et ajouter les fonctions trigonometriques 
-  [] Modification de  la Gtk.Entry 
-  [] Optimiser le code dans plusieurs classes (Brainstorming)
+  - [] Modifier l'interface et ajouter les fonctions trigonometriques 
+  - [] Modification de  la Gtk.Entry 
+  - [] Optimiser le code dans plusieurs classes (Brainstorming)
 
 #Bugs 
 Veuillez notez les bugs sur https://github.com/Chiheb-Nexus/Calculatrice-PyGtk 
