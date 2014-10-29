@@ -32,7 +32,6 @@ class CalcApp(Gtk.Window):
     "Initialisation de la fenêtre principale"
     def __init__(self):
         Gtk.Window.__init__(self,title="Calculatrice PyGtk")
-        #self.connect("delete-event",self.quitter)
         self.set_icon_from_file("images/icon.png")
         self.set_resizable(False)  # Fenêtre de taille fixe
         #self.set_default_size(250,200)
@@ -211,7 +210,7 @@ class CalcApp(Gtk.Window):
                 resultat = str(eval(b.replace("ln","log2"))) # La magie de Python !!
                 self.entree.set_text(self.affichage_avancee(resultat))
             except :
-                self.entree.set_text(b)
+                self.entree.set_text(b1)
                 
     def calcul_avance (self,a) :
         "Modification de la Gtk.Entry pour la calculer"
