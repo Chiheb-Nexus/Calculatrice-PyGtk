@@ -14,13 +14,18 @@ Veuillez noter que **Calculatrice PyGtk** dépend de **Python 3** et du **module
   - Ajout des parenthèses "(" et ")"
   - Ajout du racine carré et de la méthode "calcul_racine"
   - Le bouton "=" occupe maintenant deux colonnes 
-  - **28/10/2014** **Fix** : 
-   - Correction de la méthode "calcul_racine" et optimisation du code grâce à arshajii du forum stackoverflow.com 
+- **28/10/2014** **Fix** : 
+  - Correction de la méthode "calcul_racine" et optimisation du code grâce à arshajii du forum stackoverflow.com 
+- **29/10/2014** **Fix** :
+  - Ajout des fonctions trigonometriques
+  - Optimisation du code
+  - Création d'un dossier pour le logo et l'icône
 
  #TODO :
-  - [ ] Modifier l'interface et ajouter les fonctions trigonometriques 
+  - [x] Modifier l'interface et ajouter les fonctions trigonometriques 
   - [ ] Modification de  la Gtk.Entry 
-  - [ ] Optimiser le code dans plusieurs classes (Brainstorming)
+  - [x] Optimiser le code dans plusieurs classes (Brainstorming)
+  - [ ] Optimiser les méthodes et les intégrer dans une seule classe
 
 #Bugs 
 Veuillez notez les bugs sur https://github.com/Chiheb-Nexus/Calculatrice-PyGtk 
