@@ -22,7 +22,7 @@
 ################################################################################ 
 
 from gi.repository import Gtk,GdkPixbuf
-
+from pango_fonts import *
 class DialogQuit(Gtk.Dialog) :
     "Classe qui ouvre une fenêtre de dialog avant de quitter"
     def __init__(self,parent) : 
@@ -43,6 +43,9 @@ class MenuAnnex() :
 
 		action_filemenu = Gtk.Action("FichierMenu","Fichier",None,None)
 		action_group.add_action(action_filemenu)
+		action_filefont = Gtk.Action("FichierFont","Font",None,None,Gtk.STOCK_QUIT)
+		action_filefont.connect("activate",PyApp)
+		action_group.add_action(action_filefont)
 		action_filequit = Gtk.Action("FichierQuitter","Quitter",None,None,Gtk.STOCK_QUIT)
 		action_filequit.connect("activate",self.quitter)
 		action_group.add_action(action_filequit)
@@ -70,7 +73,7 @@ class MenuAnnex() :
 		"À propos"
 		about = Gtk.AboutDialog()
 		about.set_program_name("Calculatrice PyGtk")
-		about.set_version("<b>Version :</b> 0.0.3")
+		about.set_version("<b>Version :</b> 0.0.4")
 		about.set_copyright("Chiheb NeXus© - 2014")
 		about.set_comments("Calculatrice PygGtk est une calculatrice basique crée avec PyGtk3+ ")
 		about.set_website("http://www.nexus-coding.blogspot.com")

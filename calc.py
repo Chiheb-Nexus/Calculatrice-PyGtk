@@ -23,11 +23,12 @@
 ############################ Main Gui ##########################################
 
 
-from gi.repository import Gtk,GdkPixbuf
+from gi.repository import Gtk,GdkPixbuf,Pango
 from methodes import *
 import re
 import os
 from math import sqrt,tan,sin,cos,log2,log10,pi,factorial
+from pango_fonts import *
 class CalcApp(Gtk.Window):
     "Initialisation de la fenêtre principale"
     def __init__(self):
@@ -48,6 +49,11 @@ class CalcApp(Gtk.Window):
 
         menubar = uimanager.get_widget("/MenuBar")
         vbox = Gtk.VBox()
+        self.flag = 0 # Après l'activation de "=" si on appui
+                      # sur un nombre, la Gtk.Entry 
+                      # s'efface et sera remplacée
+                      # par le nombre entré. Sinon 
+                      # le texte reste intacte 
 
         # Liste des boutons 
         vbox.pack_start(menubar, False, False, 0)
@@ -166,7 +172,7 @@ class CalcApp(Gtk.Window):
         table.attach(self.log,5,6,4,5)
         table.attach(self.fac,6,7,4,5)
         self.entree = Gtk.Entry()
-        
+        self.entree.set_size_request(70,70) # Contrôle des dimensions de la Gtk.Entry
 
         vbox.pack_start(self.entree, True, True, 10)
         vbox.pack_end(table, True, True, 0)
@@ -178,6 +184,19 @@ class CalcApp(Gtk.Window):
         
     def print_txt (self,button,chiffre) :
         "Les numéros seront affichés dans la widget Entry"
+        if self.flag == 1 :
+            self.entree.set_text("")
+            self.flag = 0
+        try :
+           font = PyApp.font 
+        except :
+            font = "Ubuntu"
+        try :
+            taille = PyApp.taille
+        except :
+            taille = 17
+        form = Pango.FontDescription("{} {}".format(font,taille))
+        self.entree.modify_font(form)
         self.entree.insert_text(chiffre,position = 40)
         self.nombre = self.entree.get_text()
     
@@ -190,16 +209,22 @@ class CalcApp(Gtk.Window):
             self.entree.set_text(txt[:len(txt)-1])
         elif operator == "+" :
             b = self.entree.get_text()
+            self.flag = 0
             self.entree.set_text(b + "+")
         elif operator == "-" :
             b = self.entree.get_text()
             self.entree.set_text(b+"-")
+            self.flag = 0
         elif operator == "*" :
             b = self.entree.get_text()
             self.entree.set_text(b+"×")
+            self.flag = 0
         elif operator == "/" :
             b = self.entree.get_text()
             self.entree.set_text(b+"÷")
+            self.flag = 0
+            
+
         elif operator == "=" :
             # Remplacer "," par "." pour faire les calculs
             # Et remplacer "." et "/" par "," et "÷" lors de l'affichage
@@ -209,6 +234,7 @@ class CalcApp(Gtk.Window):
             try :
                 resultat = str(eval(b.replace("ln","log2"))) # La magie de Python !!
                 self.entree.set_text(self.affichage_avancee(resultat))
+                self.flag = 1
             except :
                 self.entree.set_text(b1)
                 

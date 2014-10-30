@@ -1,7 +1,7 @@
 <ui>
   <menubar name='MenuBar'>
     <menu action='FichierMenu'>
-  
+      <menuitem action='FichierFont'/>
       <menuitem action='FichierQuitter' />
     </menu>
     <menu action='AideMenu'>
