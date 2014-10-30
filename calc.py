@@ -39,7 +39,7 @@ class CalcApp(Gtk.Window):
         # Gui au centre de l'écran
         self.set_position(Gtk.WindowPosition.CENTER)
 
-        # Menu : File/_Quitter + Aide/_Àpropos + Aide/_Plus
+        # Menu : File/_Font + _Quitter + Aide/_Àpropos + Aide/_Plus
         action_group = Gtk.ActionGroup("Mes actions")
         MenuAnnex.add_fichier_menu_actions(self,action_group)
         MenuAnnex.add_aide_menu_actions(self,action_group)
