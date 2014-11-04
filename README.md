@@ -33,3 +33,4 @@ Veuillez noter que **Calculatrice PyGtk** dépend de **Python 3** et du **module
 #Bugs 
 Veuillez notez les bugs sur https://github.com/Chiheb-Nexus/Calculatrice-PyGtk 
 Pour plus d'informations, veuillez visiter mon blog : http://nexus-coding.blogspot.com/
+![alt tag](http://4.bp.blogspot.com/-lL-BivMFWVU/VFKRQFWU9vI/AAAAAAAAAs4/RbEiIKoLkTU/s1600/S%C3%A9lection_001.png)
