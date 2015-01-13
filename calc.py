@@ -23,7 +23,7 @@
 ############################ Main Gui ##########################################
 
 
-from gi.repository import Gtk,GdkPixbuf,Pango
+from gi.repository import Gtk, GdkPixbuf, Pango, Gdk
 from methodes import *
 import re
 import os
@@ -38,6 +38,18 @@ class CalcApp(Gtk.Window):
         #self.set_default_size(250,200)
         # Gui au centre de l'écran
         self.set_position(Gtk.WindowPosition.CENTER)
+
+        # CSS Theme
+        self.set_name("Calculatrice")
+        style_provider = Gtk.CssProvider()
+        css = open("style.css", "rb")
+        css_data = css.read()
+        css.close()
+        style_provider.load_from_data(css_data)
+        Gtk.StyleContext.add_provider_for_screen(
+            Gdk.Screen.get_default(),
+            style_provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
         # Menu : File/_Font + _Quitter + Aide/_Àpropos + Aide/_Plus
         action_group = Gtk.ActionGroup("Mes actions")

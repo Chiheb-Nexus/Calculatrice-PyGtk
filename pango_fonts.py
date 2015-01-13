@@ -29,6 +29,7 @@ class PyApp(Gtk.Window):
         self.set_resizable(False) # Fenêtre à taille fixe
         #self.set_size_request(350, 250)
         self.set_border_width(8)
+        self.set_icon_from_file("images/icon.png")
         
         context = self.create_pango_context()
         self.fam = context.list_families()

@@ -1,0 +1,13 @@
+#Calculatrice{
+		   background-color: Grey;
+		}
+
+GtkButton{
+           color: white;
+           background: black;
+}
+
+GtkComboBoxText{
+	color: white;
+	background-color: white;
+}
